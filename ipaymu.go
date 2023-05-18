@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Client struct {
@@ -21,6 +22,8 @@ func NewClient() *Client {
 		EnvApi: Production,
 	}
 }
+
+var defHTTPTimeout = 30 * time.Second
 
 func (c Client) CallApi(url *url.URL, signature string, body []byte) {
 	reqBody := ioutil.NopCloser(strings.NewReader(string(body)))
@@ -36,7 +39,9 @@ func (c Client) CallApi(url *url.URL, signature string, body []byte) {
 		Body: reqBody,
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	httpClient := http.DefaultClient
+	httpClient.Timeout = defHTTPTimeout
+	resp, err := httpClient.Do(req)
 
 	if err != nil {
 		log.Fatalf("An Error Occured %v", err)
