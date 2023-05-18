@@ -6,7 +6,7 @@ type RequestDirectMaster struct {
 	Email         string        `json:"email"`
 	Amount        float64       `json:"amount"`
 	NotifyUrl     string        `json:"notifyUrl"`
-	Expired       string        `json:"expired"`
+	Expired       int8          `json:"expired"`
 	ExpiredType   ExpiredType   `json:"expiredType"`
 	Comments      string        `json:"comments"`
 	ReferenceId   string        `json:"referenceId"`
