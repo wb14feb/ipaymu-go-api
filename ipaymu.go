@@ -35,6 +35,7 @@ func (c Client) CallApi(url *url.URL, signature string, body []byte) ([]byte, er
 			"Content-Type": {"application/json"},
 			"va":           {c.VirtualAccount},
 			"signature":    {signature},
+			"Accept":       {"application/json"},
 		},
 		Body: reqBody,
 	}

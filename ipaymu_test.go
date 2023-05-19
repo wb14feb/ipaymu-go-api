@@ -8,11 +8,14 @@ import (
 func TestClient_DirectPaymentVA(t *testing.T) {
 	cl := NewClient()
 	cl.EnvApi = Sandbox
-	cl.VirtualAccount = "1179002284460840"
-	cl.ApiKey = "CDC1AD1E-A19C-40E6-998D-9736BF4E42FA"
+	cl.VirtualAccount = "1179000899"
+	cl.ApiKey = "QbGcoO0Qds9sQFDmY0MWg1Tq.xtuh1"
+
+	notifyUrl := "https://your-website.com/callback"
 
 	req := NewRequestDirectVA(BNI)
 	req.AddBuyer("prima", "082313131", "test@email.com")
+	req.NotifyUrl = &notifyUrl
 	req.Amount = 100000
 
 	type args struct {
