@@ -100,3 +100,31 @@ func (r *RequestRedirect) AddProduct(product string, qty int8, price float64, we
 		r.Dimension = append(r.Dimension, *dimension)
 	}
 }
+
+type RequestTransactionHistory struct {
+	ID         *int              `json:"id"`
+	Status     *PaymentStatus    `json:"status"`
+	Date       *FilterDate       `json:"date"`
+	StartDate  *string           `json:"startdate"` // Format Y-m-d
+	EndDate    *string           `json:"enddate"`   // Format Y-m-d
+	Page       *int8             `json:"page"`
+	OrderBy    *FilterOrderBy    `json:"orderBy"`
+	Order      *FilterOrder      `json:"order"`
+	Limit      *int8             `json:"limit"` // Max Limit 20
+	Lang       *FilterLanguage   `json:"lang"`
+	BulkId     *string           `json:"bulkId"` // joined with comma (,)
+	Account    *string           `json:"account"`
+	LockStatus *FilterLockStatus `json:"lockStatus"`
+}
+
+func NewRequestTransactionHistory() *RequestTransactionHistory {
+	return &RequestTransactionHistory{}
+}
+
+type RequestCallBack struct {
+	TrxID       int    `json:"trx_id"`
+	Status      string `json:"status"`
+	StatusCode  int8   `json:"status_code"`
+	SID         string `json:"sid"`
+	ReferenceID string `json:"reference_id"`
+}

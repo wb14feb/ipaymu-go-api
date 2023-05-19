@@ -24,13 +24,13 @@ func TestClient_DirectPaymentVA(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    Response
+		want    int64
 		wantErr bool
 	}{
 		{
 			name:    "test direct va",
 			args:    args{body: *req},
-			want:    Response{},
+			want:    200,
 			wantErr: false,
 		},
 	}
@@ -42,7 +42,7 @@ func TestClient_DirectPaymentVA(t *testing.T) {
 				t.Errorf("DirectPaymentVA() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if got.Status != tt.want {
 				t.Errorf("DirectPaymentVA() got = %v, want %v", got, tt.want)
 			}
 		})
