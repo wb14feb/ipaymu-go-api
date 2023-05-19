@@ -17,9 +17,10 @@ func DirectVirtualAccount() error {
 	var exp int8 = 24
 	var expType ipaymu.ExpiredType = ipaymu.Hours
 	var refId string = time.Now().Format(" 20060102150405") // change based on needs
+	var notifUrl string = "http://localhost/notify-url"
 	request := ipaymu.NewRequestDirectVA(ipaymu.CimbNiaga)
 	request.AddBuyer("buyer", "phone", "email@test.com")
-	request.NotifyUrl = "http://localhost/notify-url"
+	request.NotifyUrl = &notifUrl
 	request.Expired = &exp
 	request.ExpiredType = &expType
 	request.ReferenceId = &refId
