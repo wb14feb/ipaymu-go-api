@@ -1,11 +1,11 @@
 package ipaymu_go_api
 
 type RequestDirectMaster struct {
-	Name          string        `json:"name"`
-	Phone         string        `json:"phone"`
-	Email         string        `json:"email"`
+	Name          *string       `json:"name"`
+	Phone         *string       `json:"phone"`
+	Email         *string       `json:"email"`
 	Amount        float64       `json:"amount"`
-	NotifyUrl     string        `json:"notifyUrl"`
+	NotifyUrl     *string       `json:"notifyUrl"`
 	Expired       *int8         `json:"expired"`
 	ExpiredType   *ExpiredType  `json:"expiredType"`
 	Comments      *string       `json:"comments"`
@@ -14,9 +14,9 @@ type RequestDirectMaster struct {
 }
 
 func (r *RequestDirectMaster) AddBuyer(name, phone, email string) {
-	r.Name = name
-	r.Phone = phone
-	r.Email = email
+	r.Name = &name
+	r.Phone = &phone
+	r.Email = &email
 }
 
 type Product struct {
