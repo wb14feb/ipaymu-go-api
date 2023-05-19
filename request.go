@@ -67,10 +67,10 @@ type RequestDirectConStore struct {
 }
 
 type RequestRedirect struct {
-	Description   string         `json:"description"`
-	ReturnUrl     string         `json:"returnUrl"`
-	NotifyUrl     string         `json:"notifyUrl"`
-	CancelUrl     string         `json:"cancelUrl"`
+	Description   *string        `json:"description"`
+	ReturnUrl     *string        `json:"returnUrl"`
+	NotifyUrl     *string        `json:"notifyUrl"`
+	CancelUrl     *string        `json:"cancelUrl"`
 	ReferenceId   *string        `json:"referenceId"`
 	Product       []string       `json:"product"`
 	Qty           []int8         `json:"qty"`
