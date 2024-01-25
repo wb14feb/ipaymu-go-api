@@ -112,6 +112,18 @@ type ResponseListPayment struct {
 	} `json:"Data"`
 }
 
+type ResponseListPaymentLower struct {
+	Status  int    `json:"status"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+	Data    []struct {
+		Code        string                 `json:"code"`
+		Name        string                 `json:"name"`
+		Description string                 `json:"description"`
+		Channels    []PaymentChannelDetailLower `json:"channels,omitempty"`
+	} `json:"data"`
+}
+
 type PaymentChannelDetail struct {
 	Code        string `json:"Code"`
 	Name        string `json:"Name"`
@@ -127,4 +139,80 @@ type PaymentChannelDetail struct {
 			AdditionalFee int    `json:"AdditionalFee"`
 		}
 	}
+}
+
+type PaymentChannelDetailLower struct {
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Channels    []struct {
+		Code                 string `json:"code"`
+		Name                 string `json:"name"`
+		Description          string `json:"description"`
+		PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
+		TransactionFee       struct {
+			ActualFee     int    `json:"actualFee"`
+			ActualFeeType string `json:"actualFeeType"`
+			AdditionalFee int    `json:"additionalFee"`
+		}
+	}
+}
+
+func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
+	var res ResponseListPaymentLower
+	res.Status = r.Status
+	res.Success = r.Success
+	res.Message = r.Message
+
+	for _, v := range r.Data {
+		var data struct {
+			Code        string                 `json:"code"`
+			Name        string                 `json:"name"`
+			Description string                 `json:"description"`
+			Channels    []PaymentChannelDetailLower `json:"channels,omitempty"`
+		}
+		data.Code = v.Code
+		data.Name = v.Name
+		data.Description = v.Description
+		var channels []PaymentChannelDetailLower
+
+		for _, strct := range v.Channels {
+			channels = append(channels, strct.EncodeJsonLowerCase())
+		}
+
+		res.Data = append(res.Data, data)
+	}
+	return res
+}
+
+func (r PaymentChannelDetail) EncodeJsonLowerCase() PaymentChannelDetailLower {
+	var res PaymentChannelDetailLower
+	res.Code = r.Code
+	res.Name = r.Name
+	res.Description = r.Description
+
+	for _, v := range r.Channels {
+		var data struct {
+			Code                 string `json:"code"`
+			Name                 string `json:"name"`
+			Description          string `json:"description"`
+			PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
+			TransactionFee       struct {
+				ActualFee     int    `json:"actualFee"`
+				ActualFeeType string `json:"actualFeeType"`
+				AdditionalFee int    `json:"additionalFee"`
+			}
+		}
+
+		data.Code = v.Code
+		data.Name = v.Name
+		data.Description = v.Description
+		data.PaymentIntrucionsDoc = v.PaymentIntrucionsDoc
+		data.TransactionFee.ActualFee = v.TransactionFee.ActualFee
+		data.TransactionFee.ActualFeeType = v.TransactionFee.ActualFeeType
+		data.TransactionFee.AdditionalFee = v.TransactionFee.AdditionalFee
+		res.Channels = append(res.Channels, data)
+	}
+
+	return res
 }

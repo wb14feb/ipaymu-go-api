@@ -19,7 +19,7 @@ func ListPaymentMethod() error {
 		return err
 	}
 
-	fmt.Printf("%v", balance)
+	fmt.Printf("%v", balance.EncodeJsonLowerCase())
 
 	return nil
 }
