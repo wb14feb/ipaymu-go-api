@@ -4,65 +4,65 @@ type Response struct {
 	Status int64
 
 	// v2 payment
-	Message string        `json:"Message,omitempty"`
-	Data    *ResponseData `json:"Data,omitempty"`
+	Message string        `json:"message,omitempty"`
+	Data    *ResponseData `json:"data,omitempty"`
 }
 
 type ResponseData struct {
-	SessionId     string  `json:"SessionId,omitempty"`
-	TransactionId int64   `json:"TransactionId,omitempty"`
-	ReferenceId   string  `json:"ReferenceId,omitempty"`
-	Via           string  `json:"Via,omitempty"`
-	Channel       string  `json:"Channel,omitempty"`
-	PaymentNo     string  `json:"PaymentNo,omitempty"`
-	PaymentName   string  `json:"PaymentName,omitempty"`
-	Total         float64 `json:"Total,omitempty"`
-	Fee           int64   `json:"Fee,omitempty"`
-	Expired       string  `json:"Expired,omitempty"`
-	Note          string  `json:"Note,omitempty"`
-	Url           string  `json:"Url,omitempty"`
+	SessionId     string  `json:"sessionId,omitempty"`
+	TransactionId int64   `json:"transactionId,omitempty"`
+	ReferenceId   string  `json:"referenceId,omitempty"`
+	Via           string  `json:"via,omitempty"`
+	Channel       string  `json:"channel,omitempty"`
+	PaymentNo     string  `json:"paymentNo,omitempty"`
+	PaymentName   string  `json:"paymentName,omitempty"`
+	Total         float64 `json:"total,omitempty"`
+	Fee           int64   `json:"fee,omitempty"`
+	Expired       string  `json:"expired,omitempty"`
+	Note          string  `json:"note,omitempty"`
+	Url           string  `json:"url,omitempty"`
 }
 
 type ResponseCheck struct {
 	Status int `json:"Status"`
 	Data   struct {
-		TransactionId  int         `json:"TransactionId"`
-		SessionId      string      `json:"SessionId"`
-		ReferenceId    interface{} `json:"ReferenceId"`
-		RelatedId      int         `json:"RelatedId"`
-		Sender         string      `json:"Sender"`
-		Receiver       string      `json:"Receiver"`
-		Amount         int         `json:"Amount"`
-		Fee            int         `json:"Fee"`
-		Status         int         `json:"Status"`
-		StatusDesc     string      `json:"StatusDesc"`
-		Type           int         `json:"Type"`
-		TypeDesc       string      `json:"TypeDesc"`
-		Notes          string      `json:"Notes"`
-		CreatedDate    string      `json:"CreatedDate"`
-		ExpiredDate    string      `json:"ExpiredDate"`
-		SuccessDate    string      `json:"SuccessDate"`
-		SettlementDate string      `json:"SettlementDate"`
-	} `json:"Data"`
-	Message string `json:"Message"`
+		TransactionId  int         `json:"transactionId"`
+		SessionId      string      `json:"sessionId"`
+		ReferenceId    interface{} `json:"referenceId"`
+		RelatedId      int         `json:"relatedId"`
+		Sender         string      `json:"sender"`
+		Receiver       string      `json:"receiver"`
+		Amount         int         `json:"amount"`
+		Fee            int         `json:"fee"`
+		Status         int         `json:"status"`
+		StatusDesc     string      `json:"statusDesc"`
+		Type           int         `json:"type"`
+		TypeDesc       string      `json:"typeDesc"`
+		Notes          string      `json:"notes"`
+		CreatedDate    string      `json:"createdDate"`
+		ExpiredDate    string      `json:"expiredDate"`
+		SuccessDate    string      `json:"successDate"`
+		SettlementDate string      `json:"settlementDate"`
+	} `json:"data"`
+	Message string `json:"message"`
 }
 
 type ResponseBalance struct {
-	Status int `json:"Status"`
+	Status int `json:"status"`
 	Data   struct {
-		Va              string  `json:"Va"`
-		MerchantBalance float64 `json:"MerchantBalance"`
-		MemberBalance   float64 `json:"MemberBalance"`
-	} `json:"Data"`
-	Message string `json:"Message"`
+		Va              string  `json:"va"`
+		MerchantBalance float64 `json:"merchantBalance"`
+		MemberBalance   float64 `json:"memberBalance"`
+	} `json:"data"`
+	Message string `json:"message"`
 }
 
 type ResponseTransaction struct {
-	Status  int    `json:"Status"`
-	Success bool   `json:"Success"`
-	Message string `json:"Message"`
+	Status  int    `json:"status"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
 	Data    struct {
-		Transaction []Transaction `json:"Transaction"`
+		Transaction []Transaction `json:"transaction"`
 		Pagination  struct {
 			Total       int `json:"total"`
 			Count       int `json:"count"`
@@ -101,34 +101,30 @@ type Transaction struct {
 }
 
 type ResponseListPayment struct {
-	Status int `json:"Status"`
-	Data   []struct {
-		Code          string                 `json:"Code"`
-		Description   string                 `json:"Description"`
-		Channels      []PaymentChannelDetail `json:"Channels,omitempty"`
-		PaymentMethod []PaymentMethodDetail  `json:"PaymentMethod,omitempty"`
-	} `json:"Data"`
+	Status  int    `json:"Status"`
+	Success bool   `json:"Success"`
 	Message string `json:"Message"`
+	Data    []struct {
+		Code        string                 `json:"Code"`
+		Name        string                 `json:"Name"`
+		Description string                 `json:"Description"`
+		Channels    []PaymentChannelDetail `json:"Channels,omitempty"`
+	} `json:"Data"`
 }
 
 type PaymentChannelDetail struct {
-	Code                 string `json:"Code"`
-	Description          string `json:"Description"`
-	PaymentIntrucionsDoc string `json:"PaymentIntrucionsDoc"`
-	TransactionFee       struct {
-		ActualFee     int    `json:"ActualFee"`
-		ActualFeeType string `json:"ActualFeeType"`
-		AdditionalFee int    `json:"AdditionalFee"`
-	} `json:"TransactionFee"`
-}
-
-type PaymentMethodDetail struct {
-	Code                 string  `json:"Code"`
-	Description          string  `json:"Description"`
-	PaymentIntrucionsDoc *string `json:"PaymentIntrucionsDoc"`
-	TransactionFee       struct {
-		ActualFee     int    `json:"ActualFee"`
-		ActualFeeType string `json:"ActualFeeType"`
-		AdditionalFee int    `json:"AdditionalFee"`
-	} `json:"TransactionFee"`
+	Code        string `json:"Code"`
+	Name        string `json:"Name"`
+	Description string `json:"Description"`
+	Channels    []struct {
+		Code                 string `json:"Code"`
+		Name                 string `json:"Name"`
+		Description          string `json:"Description"`
+		PaymentIntrucionsDoc string `json:"PaymentIntrucionsDoc"`
+		TransactionFee       struct {
+			ActualFee     int    `json:"ActualFee"`
+			ActualFeeType string `json:"ActualFeeType"`
+			AdditionalFee int    `json:"AdditionalFee"`
+		}
+	}
 }
