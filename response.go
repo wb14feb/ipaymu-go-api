@@ -117,45 +117,35 @@ type ResponseListPaymentLower struct {
 	Success bool   `json:"success"`
 	Message string `json:"message"`
 	Data    []struct {
-		Code        string                 `json:"code"`
-		Name        string                 `json:"name"`
-		Description string                 `json:"description"`
+		Code        string                      `json:"code"`
+		Name        string                      `json:"name"`
+		Description string                      `json:"description"`
 		Channels    []PaymentChannelDetailLower `json:"channels,omitempty"`
 	} `json:"data"`
 }
 
 type PaymentChannelDetail struct {
-	Code        string `json:"Code"`
-	Name        string `json:"Name"`
-	Description string `json:"Description"`
-	Channels    []struct {
-		Code                 string `json:"Code"`
-		Name                 string `json:"Name"`
-		Description          string `json:"Description"`
-		PaymentIntrucionsDoc string `json:"PaymentIntrucionsDoc"`
-		TransactionFee       struct {
-			ActualFee     int    `json:"ActualFee"`
-			ActualFeeType string `json:"ActualFeeType"`
-			AdditionalFee int    `json:"AdditionalFee"`
-		}
+	Code                 string `json:"Code"`
+	Name                 string `json:"Name"`
+	Description          string `json:"Description"`
+	PaymentIntrucionsDoc string `json:"PaymentIntrucionsDoc"`
+	TransactionFee       struct {
+		ActualFee     float64 `json:"ActualFee" example:"0.0"  description:"actual fee, can be percent"`
+		ActualFeeType string  `json:"ActualFeeType"`
+		AdditionalFee int     `json:"AdditionalFee"`
 	}
 }
 
 type PaymentChannelDetailLower struct {
-	Code        string `json:"code"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Channels    []struct {
-		Code                 string `json:"code"`
-		Name                 string `json:"name"`
-		Description          string `json:"description"`
-		PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
-		TransactionFee       struct {
-			ActualFee     int    `json:"actualFee"`
-			ActualFeeType string `json:"actualFeeType"`
-			AdditionalFee int    `json:"additionalFee"`
-		}
-	} `json:"channels"`
+	Code                 string `json:"code"`
+	Name                 string `json:"name"`
+	Description          string `json:"description"`
+	PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
+	TransactionFee       struct {
+		ActualFee     float64 `json:"actualFee"  example:"0.0"  description:"actual fee, can be percent"`
+		ActualFeeType string  `json:"actualFeeType" examples:"PERCENT, FLAT"  description:"actual fee type, can be PERCENT or FLAT"`
+		AdditionalFee int     `json:"additionalFee"`
+	}
 }
 
 func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
@@ -166,9 +156,9 @@ func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
 
 	for _, v := range r.Data {
 		var data struct {
-			Code        string                 `json:"code"`
-			Name        string                 `json:"name"`
-			Description string                 `json:"description"`
+			Code        string                      `json:"code"`
+			Name        string                      `json:"name"`
+			Description string                      `json:"description"`
 			Channels    []PaymentChannelDetailLower `json:"channels,omitempty"`
 		}
 		data.Code = v.Code
@@ -181,7 +171,7 @@ func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
 		}
 
 		data.Channels = channels
-		
+
 		res.Data = append(res.Data, data)
 	}
 	return res
@@ -192,29 +182,11 @@ func (r PaymentChannelDetail) EncodeJsonLowerCase() PaymentChannelDetailLower {
 	res.Code = r.Code
 	res.Name = r.Name
 	res.Description = r.Description
-
-	for _, v := range r.Channels {
-		var data struct {
-			Code                 string `json:"code"`
-			Name                 string `json:"name"`
-			Description          string `json:"description"`
-			PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
-			TransactionFee       struct {
-				ActualFee     int    `json:"actualFee"`
-				ActualFeeType string `json:"actualFeeType"`
-				AdditionalFee int    `json:"additionalFee"`
-			}
-		}
-
-		data.Code = v.Code
-		data.Name = v.Name
-		data.Description = v.Description
-		data.PaymentIntrucionsDoc = v.PaymentIntrucionsDoc
-		data.TransactionFee.ActualFee = v.TransactionFee.ActualFee
-		data.TransactionFee.ActualFeeType = v.TransactionFee.ActualFeeType
-		data.TransactionFee.AdditionalFee = v.TransactionFee.AdditionalFee
-		res.Channels = append(res.Channels, data)
-	}
+	res.PaymentIntrucionsDoc = r.PaymentIntrucionsDoc
+	res.TransactionFee.ActualFee = r.TransactionFee.ActualFee
+	res.TransactionFee.ActualFeeType = r.TransactionFee.ActualFeeType
+	res.TransactionFee.AdditionalFee = r.TransactionFee.AdditionalFee
 
 	return res
+
 }
