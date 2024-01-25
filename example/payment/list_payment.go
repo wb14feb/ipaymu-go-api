@@ -3,7 +3,7 @@ package payment
 import (
 	"fmt"
 
-	ipaymu "github.com/wb14feb/ipaymu-api"
+	ipaymu "github.com/wb14feb/ipaymu-go-api"
 )
 
 func ListPaymentMethod() error {

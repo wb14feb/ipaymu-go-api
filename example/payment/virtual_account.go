@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	ipaymu "github.com/wb14feb/ipaymu-api"
+	ipaymu "github.com/wb14feb/ipaymu-go-api"
 )
 
 func DirectVirtualAccount() error {
