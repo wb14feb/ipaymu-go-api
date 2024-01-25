@@ -140,7 +140,7 @@ type PaymentChannelDetailLower struct {
 	Code                 string `json:"code"`
 	Name                 string `json:"name"`
 	Description          string `json:"description"`
-	PaymentInstructionsDoc string `json:"paymentIntrucionsDoc"`
+	PaymentInstructionsDoc string `json:"paymentInstructionsDoc"`
 	TransactionFee       struct {
 		ActualFee     float64 `json:"actualFee"  example:"0.0"  description:"actual fee, can be percent"`
 		ActualFeeType string  `json:"actualFeeType" examples:"PERCENT, FLAT"  description:"actual fee type, can be PERCENT or FLAT"`
