@@ -2,8 +2,9 @@ package payment
 
 import (
 	"fmt"
-	ipaymu "gitlab.ipaymu.com/plugin/ipaymu-go-api"
 	"strings"
+
+	ipaymu "github.com/wb14feb/ipaymu-api"
 )
 
 func HistoryTransaction() error {

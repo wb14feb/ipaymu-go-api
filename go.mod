@@ -1,3 +1,3 @@
-module gitlab.ipaymu.com/plugin/ipaymu-go-api
+module github.com/wb14feb/ipaymu-api
 
-go 1.18
+go 1.21.5
