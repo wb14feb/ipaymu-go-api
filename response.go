@@ -180,6 +180,8 @@ func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
 			channels = append(channels, strct.EncodeJsonLowerCase())
 		}
 
+		data.Channels = channels
+		
 		res.Data = append(res.Data, data)
 	}
 	return res

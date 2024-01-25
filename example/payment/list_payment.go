@@ -6,7 +6,7 @@ import (
 	ipaymu "github.com/wb14feb/ipaymu-go-api"
 )
 
-func ListPaymentMethod() error {
+func ListPaymentMethod() (ipaymu.ResponseListPayment, error) {
 	// initiate client
 	client := ipaymu.NewClient()
 	client.EnvApi = ipaymu.Sandbox
@@ -16,10 +16,10 @@ func ListPaymentMethod() error {
 	// api call
 	balance, err := client.ListPaymentMethod()
 	if err != nil {
-		return err
+		return ipaymu.ResponseListPayment{}, err
 	}
 
 	fmt.Printf("%v", balance.EncodeJsonLowerCase())
 
-	return nil
+	return balance, nil
 }

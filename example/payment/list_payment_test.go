@@ -1,6 +1,8 @@
 package payment
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestListPaymentMethod(t *testing.T) {
 	tests := []struct {
@@ -13,10 +15,19 @@ func TestListPaymentMethod(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+
 		t.Run(tt.name, func(t *testing.T) {
-			if err := ListPaymentMethod(); (err != nil) != tt.wantErr {
+			payments, err := ListPaymentMethod()
+			
+			if (err != nil) != tt.wantErr {
 				t.Errorf("ListPaymentMethod() error = %v, wantErr %v", err, tt.wantErr)
 			}
+
+			uppercase := payments
+			lowercase := payments.EncodeJsonLowerCase()
+
+			t.Logf("encoded uppercase: %v", uppercase)
+			t.Logf("encoded lowercase: %v", lowercase)
 		})
 	}
 }
