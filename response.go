@@ -155,7 +155,7 @@ type PaymentChannelDetailLower struct {
 			ActualFeeType string `json:"actualFeeType"`
 			AdditionalFee int    `json:"additionalFee"`
 		}
-	}
+	} `json:"channels"`
 }
 
 func (r ResponseListPayment) EncodeJsonLowerCase() ResponseListPaymentLower {
