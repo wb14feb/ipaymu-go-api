@@ -140,7 +140,7 @@ type PaymentChannelDetailLower struct {
 	Code                 string `json:"code"`
 	Name                 string `json:"name"`
 	Description          string `json:"description"`
-	PaymentIntrucionsDoc string `json:"paymentIntrucionsDoc"`
+	PaymentInstructionsDoc string `json:"paymentIntrucionsDoc"`
 	TransactionFee       struct {
 		ActualFee     float64 `json:"actualFee"  example:"0.0"  description:"actual fee, can be percent"`
 		ActualFeeType string  `json:"actualFeeType" examples:"PERCENT, FLAT"  description:"actual fee type, can be PERCENT or FLAT"`
@@ -182,7 +182,7 @@ func (r PaymentChannelDetail) EncodeJsonLowerCase() PaymentChannelDetailLower {
 	res.Code = r.Code
 	res.Name = r.Name
 	res.Description = r.Description
-	res.PaymentIntrucionsDoc = r.PaymentIntrucionsDoc
+	res.PaymentInstructionsDoc = r.PaymentIntrucionsDoc
 	res.TransactionFee.ActualFee = r.TransactionFee.ActualFee
 	res.TransactionFee.ActualFeeType = r.TransactionFee.ActualFeeType
 	res.TransactionFee.AdditionalFee = r.TransactionFee.AdditionalFee
