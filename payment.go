@@ -35,11 +35,14 @@ func (c Client) DirectPaymentVA(request RequestDirectVA) (res Response, err erro
 	if err != nil {
 		return Response{}, err
 	}
+	var responseUpper ResponseUpper
 
-	err = json.Unmarshal(api, &res)
+	err = json.Unmarshal(api, &responseUpper)
 	if err != nil {
 		return Response{}, err
 	}
+
+		res = responseUpper.ToResponse()
 
 	if res.Status != 200 {
 		return res, fmt.Errorf("%s", res.Message)
@@ -57,11 +60,14 @@ func (c Client) DirectPaymentConStore(request RequestDirectConStore) (res Respon
 		return Response{}, err
 	}
 
-	err = json.Unmarshal(api, &res)
+	var responseUpper ResponseUpper
+
+	err = json.Unmarshal(api, &responseUpper)
 	if err != nil {
 		return Response{}, err
 	}
 
+	res = responseUpper.ToResponse()
 	if res.Status != 200 {
 		return res, fmt.Errorf("%s", res.Message)
 	}
@@ -78,10 +84,14 @@ func (c Client) DirectPaymentCOD(request RequestDirectCOD) (res Response, err er
 		return Response{}, err
 	}
 
-	err = json.Unmarshal(api, &res)
+	var responseUpper ResponseUpper
+
+	err = json.Unmarshal(api, &responseUpper)
 	if err != nil {
 		return Response{}, err
 	}
+
+	res = responseUpper.ToResponse()
 
 	if res.Status != 200 {
 		return res, fmt.Errorf("%s", res.Message)
@@ -99,10 +109,15 @@ func (c Client) RedirectPayment(request RequestRedirect) (res Response, err erro
 		return Response{}, err
 	}
 
-	err = json.Unmarshal(api, &res)
+	var responseUpper ResponseUpper
+
+	err = json.Unmarshal(api, &responseUpper)
+
 	if err != nil {
 		return Response{}, err
 	}
+
+	res = responseUpper.ToResponse()
 
 	if res.Status != 200 {
 		return res, fmt.Errorf("%s", res.Message)

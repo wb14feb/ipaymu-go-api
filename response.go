@@ -1,7 +1,7 @@
 package ipaymu_go_api
 
 type Response struct {
-	Status int64
+	Status int64 `json:"status"`
 
 	// v2 payment
 	Message string        `json:"message,omitempty"`
@@ -21,6 +21,59 @@ type ResponseData struct {
 	Expired       string  `json:"expired,omitempty"`
 	Note          string  `json:"note,omitempty"`
 	Url           string  `json:"url,omitempty"`
+}
+
+// intermidiate struct for unmarshalling, you can ignore this
+type ResponseUpper struct {
+	Status int64 `json:"Status"`
+
+	// v2 payment
+	Message string             `json:"Message,omitempty"`
+	Data    *ResponseDataUpper `json:"Data,omitempty"`
+}
+
+// intermidiate struct for unmarshalling, you can ignore this
+type ResponseDataUpper struct {
+	SessionId     string  `json:"SessionId,omitempty"`
+	TransactionId int64   `json:"TransactionId,omitempty"`
+	ReferenceId   string  `json:"ReferenceId,omitempty"`
+	Via           string  `json:"Via,omitempty"`
+	Channel       string  `json:"Channel,omitempty"`
+	PaymentNo     string  `json:"PaymentNo,omitempty"`
+	PaymentName   string  `json:"PaymentName,omitempty"`
+	Total         float64 `json:"Total,omitempty"`
+	Fee           int64   `json:"Fee,omitempty"`
+	Expired       string  `json:"Expired,omitempty"`
+	Note          string  `json:"Note,omitempty"`
+	Url           string  `json:"Url,omitempty"`
+}
+
+func (ru *ResponseUpper) ToResponse() Response {
+	return Response{
+		Status:  ru.Status,
+		Message: ru.Message,
+		Data:    ru.Data.ToResponseData(),
+	}
+}
+
+func (rdu *ResponseDataUpper) ToResponseData() *ResponseData {
+	if rdu == nil {
+		return nil
+	}
+	return &ResponseData{
+		SessionId:     rdu.SessionId,
+		TransactionId: rdu.TransactionId,
+		ReferenceId:   rdu.ReferenceId,
+		Via:           rdu.Via,
+		Channel:       rdu.Channel,
+		PaymentNo:     rdu.PaymentNo,
+		PaymentName:   rdu.PaymentName,
+		Total:         rdu.Total,
+		Fee:           rdu.Fee,
+		Expired:       rdu.Expired,
+		Note:          rdu.Note,
+		Url:           rdu.Url,
+	}
 }
 
 type ResponseCheck struct {
@@ -137,11 +190,11 @@ type PaymentChannelDetail struct {
 }
 
 type PaymentChannelDetailLower struct {
-	Code                 string `json:"code"`
-	Name                 string `json:"name"`
-	Description          string `json:"description"`
+	Code                   string `json:"code"`
+	Name                   string `json:"name"`
+	Description            string `json:"description"`
 	PaymentInstructionsDoc string `json:"paymentInstructionsDoc"`
-	TransactionFee       struct {
+	TransactionFee         struct {
 		ActualFee     float64 `json:"actualFee"  example:"0.0"  description:"actual fee, can be percent"`
 		ActualFeeType string  `json:"actualFeeType" examples:"PERCENT, FLAT"  description:"actual fee type, can be PERCENT or FLAT"`
 		AdditionalFee int     `json:"additionalFee"`
