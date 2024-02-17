@@ -8,6 +8,7 @@ const (
 	COD              PaymentMethod = "cod"
 	QRISMethod       PaymentMethod = "qris"
 	Paylater         PaymentMethod = "paylater"
+	CreditCard       PaymentMethod = "cc"
 )
 
 type PaymentChannelVA string
