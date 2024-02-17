@@ -13,6 +13,14 @@ type RequestDirectMaster struct {
 	PaymentMethod PaymentMethod `json:"paymentMethod"`
 }
 
+type RequestDirectCreditCard = RequestDirectMaster
+
+func NewRequestDirectCreditCard() *RequestDirectCreditCard {
+	return &RequestDirectCreditCard{
+		PaymentMethod: CreditCard,
+	}
+}
+
 func (r *RequestDirectMaster) AddBuyer(name, phone, email string) {
 	r.Name = &name
 	r.Phone = &phone
